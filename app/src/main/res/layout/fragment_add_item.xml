@@ -16,6 +16,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:hint="@string/quantity_req"
-            app:layout_constraintBottom_toTopOf="@+id/save_action"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_price_label">
@@ -80,15 +81,31 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/save_action"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_count_label"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/baseline_image_search_24" />
+
         <Button
             android:id="@+id/save_action"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="48dp"
             android:text="@string/save_action"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_count_label" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            android:layout_marginBottom="48dp"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
