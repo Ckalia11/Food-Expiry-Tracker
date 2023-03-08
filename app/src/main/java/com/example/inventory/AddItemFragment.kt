@@ -85,6 +85,7 @@ class AddItemFragment : Fragment() {
         }
     }
 
+
     /**
      * Inserts the new Item into database and navigates up to list fragment.
      */
@@ -126,14 +127,21 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id = navigationArgs.itemId
+        // Protocol for editing an existing item
         if (id > 0) {
             viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) { selectedItem ->
                 item = selectedItem
                 bind(item)
             }
+            binding.imageView.visibility = View.VISIBLE
+
+        // Protocol for adding a new item
         } else {
             binding.saveAction.setOnClickListener {
                 addNewItem()
+            }
+            binding.uploadPhoto.setOnClickListener{
+                binding.imageView.visibility = View.VISIBLE
             }
         }
     }
