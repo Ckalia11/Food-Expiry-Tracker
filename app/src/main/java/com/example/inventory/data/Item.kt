@@ -33,6 +33,8 @@ data class Item(
     val itemPrice: Double,
     @ColumnInfo(name = "quantity")
     val quantityInStock: Int,
+    @ColumnInfo(name = "expiration")
+    val expiryDate: Long
 )
 /**
  * Returns the passed in price in currency format.

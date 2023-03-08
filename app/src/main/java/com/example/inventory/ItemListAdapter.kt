@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inventory.data.Item
 import com.example.inventory.data.getFormattedPrice
 import com.example.inventory.databinding.ItemListItemBinding
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * [ListAdapter] implementation for the recyclerview.
@@ -53,9 +55,14 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
+            val timeToday = Date().time
+            val timeLeft:Long = item.expiryDate - timeToday
+            val daysLeft = TimeUnit.DAYS.convert(timeLeft, TimeUnit.MILLISECONDS)
+
             binding.itemName.text = item.itemName
             binding.itemPrice.text = item.getFormattedPrice()
             binding.itemQuantity.text = item.quantityInStock.toString()
+            binding.ingredientExpiry.text = daysLeft.toString()
         }
     }
 

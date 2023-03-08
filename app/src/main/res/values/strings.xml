@@ -27,6 +27,7 @@
     <string name="price">Price</string>
     <string name="quantity_in_stock">Quantity\nIn Stock</string>
     <string name="item">Item</string>
+    <string name="ingredient">Ingredient</string>
     <string name="delete">Delete</string>
     <string name="delete_question">Are you sure you want to delete?</string>
     <string name="no">No</string>

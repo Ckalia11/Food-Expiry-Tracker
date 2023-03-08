@@ -24,6 +24,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.inventory.data.Item
 import com.example.inventory.data.ItemDao
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * View Model to keep a reference to the Inventory repository and an up-to-date list of all items.
@@ -123,10 +124,14 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * This will be used to add a new entry to the Inventory database.
      */
     private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String): Item {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DATE, 5)
+
         return Item(
             itemName = itemName,
             itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            quantityInStock = itemCount.toInt(),
+            expiryDate = calendar.time.time
         )
     }
 
@@ -140,11 +145,16 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemPrice: String,
         itemCount: String
     ): Item {
+
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DATE, 5)
+
         return Item(
             id = itemId,
             itemName = itemName,
             itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            quantityInStock = itemCount.toInt(),
+            expiryDate = calendar.time.time
         )
     }
 }
