@@ -89,7 +89,9 @@ class AddItemFragment : Fragment() {
             itemPrice.setText(price, TextView.BufferType.SPANNABLE)
             itemCount.setText(item.quantityInStock.toString(), TextView.BufferType.SPANNABLE)
             saveAction.setOnClickListener { updateItem() }
+            binding.imageView.setImageURI(Uri.parse(item.imageUri))
         }
+        binding.imageView.visibility = View.VISIBLE
     }
 
 
@@ -102,6 +104,7 @@ class AddItemFragment : Fragment() {
                 binding.itemName.text.toString(),
                 binding.itemPrice.text.toString(),
                 binding.itemCount.text.toString(),
+                imageUri.toString()
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)
@@ -117,18 +120,21 @@ class AddItemFragment : Fragment() {
                 this.navigationArgs.itemId,
                 this.binding.itemName.text.toString(),
                 this.binding.itemPrice.text.toString(),
-                this.binding.itemCount.text.toString()
+                this.binding.itemCount.text.toString()        ,
+                this.imageUri.toString()
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)
         }
     }
 
+    // @BL: Renders the user-uploaded image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
             binding.imageView.setImageURI(imageUri)
+            binding.imageView.visibility = View.VISIBLE
         }
     }
 
@@ -148,7 +154,6 @@ class AddItemFragment : Fragment() {
                 item = selectedItem
                 bind(item)
             }
-            binding.imageView.visibility = View.VISIBLE
 
         // Protocol for adding a new item
         } else {
@@ -156,7 +161,6 @@ class AddItemFragment : Fragment() {
                 addNewItem()
             }
             binding.uploadPhoto.setOnClickListener{
-                binding.imageView.visibility = View.VISIBLE
                 val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
                 startActivityForResult(gallery, pickImage)
             }

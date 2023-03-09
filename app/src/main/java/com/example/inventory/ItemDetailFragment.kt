@@ -16,6 +16,7 @@
 
 package com.example.inventory
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +67,7 @@ class ItemDetailFragment : Fragment() {
             sellItem.setOnClickListener { viewModel.sellItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             editItem.setOnClickListener { editItem() }
+            imageView.setImageURI(Uri.parse(item.imageUri))
         }
     }
 

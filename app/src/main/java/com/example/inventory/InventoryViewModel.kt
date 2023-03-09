@@ -49,9 +49,10 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemId: Int,
         itemName: String,
         itemPrice: String,
-        itemCount: String
+        itemCount: String,
+        imageUri: String
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)
+        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount, imageUri)
         updateItem(updatedItem)
     }
 
@@ -79,8 +80,13 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Inserts the new Item into database.
      */
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
+    fun addNewItem(
+        itemName: String,
+        itemPrice: String,
+        itemCount: String,
+        imageUri: String
+    ) {
+        val newItem = getNewItemEntry(itemName, itemPrice, itemCount, imageUri)
         insertItem(newItem)
     }
 
@@ -123,7 +129,12 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Returns an instance of the [Item] entity class with the item info entered by the user.
      * This will be used to add a new entry to the Inventory database.
      */
-    private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String): Item {
+    private fun getNewItemEntry(
+        itemName: String,
+        itemPrice: String,
+        itemCount: String,
+        imageUri: String
+    ): Item {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DATE, 5)
 
@@ -131,7 +142,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             itemName = itemName,
             itemPrice = itemPrice.toDouble(),
             quantityInStock = itemCount.toInt(),
-            expiryDate = calendar.time.time
+            expiryDate = calendar.time.time,
+            imageUri = imageUri
         )
     }
 
@@ -143,7 +155,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemId: Int,
         itemName: String,
         itemPrice: String,
-        itemCount: String
+        itemCount: String,
+        imageUri: String
     ): Item {
 
         val calendar = Calendar.getInstance()
@@ -154,7 +167,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             itemName = itemName,
             itemPrice = itemPrice.toDouble(),
             quantityInStock = itemCount.toInt(),
-            expiryDate = calendar.time.time
+            expiryDate = calendar.time.time,
+            imageUri = imageUri
         )
     }
 }

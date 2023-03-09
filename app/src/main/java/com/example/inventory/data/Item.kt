@@ -15,6 +15,7 @@
  */
 package com.example.inventory.data
 
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -34,8 +35,11 @@ data class Item(
     @ColumnInfo(name = "quantity")
     val quantityInStock: Int,
     @ColumnInfo(name = "expiration")
-    val expiryDate: Long
+    val expiryDate: Long,
+    @ColumnInfo(name = "filepath")
+    val imageUri: String
 )
+
 /**
  * Returns the passed in price in currency format.
  */
