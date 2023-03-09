@@ -36,4 +36,20 @@
     <string name="edit_item">Edit Item</string>
     <string name="add_new_item">Add new item</string>
     <string name="upload">Upload Photo</string>
+
+    <string-array name="foodCategories">
+        <item>Fruits</item>
+        <item>Vegetables</item>
+        <item>Canned</item>
+        <item>Dairy</item>
+        <item>Meat</item>
+        <item>Seafood</item>
+        <item>Deli</item>
+        <item>Condiments</item>
+        <item>Snacks</item>
+        <item>Bakery</item>
+        <item>Beverages</item>
+        <item>Pasta, Rice and Cereal</item>
+        <item>Frozen</item>
+    </string-array>
 </resources>

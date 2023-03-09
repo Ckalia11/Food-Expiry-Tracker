@@ -15,8 +15,12 @@
  */
 package com.example.inventory
 
+import android.app.Activity.RESULT_OK
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,6 +55,9 @@ class AddItemFragment : Fragment() {
     // when the view hierarchy is attached to the fragment
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
+
+    private val pickImage = 100
+    private var imageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,6 +124,14 @@ class AddItemFragment : Fragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            binding.imageView.setImageURI(imageUri)
+        }
+    }
+
     /**
      * Called when the view is created.
      * The itemId Navigation argument determines the edit item  or add new item.
@@ -142,8 +157,11 @@ class AddItemFragment : Fragment() {
             }
             binding.uploadPhoto.setOnClickListener{
                 binding.imageView.visibility = View.VISIBLE
+                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                startActivityForResult(gallery, pickImage)
             }
         }
+
     }
 
     /**
