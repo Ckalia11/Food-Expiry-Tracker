@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventory.data.Item
-import com.example.inventory.data.getFormattedPrice
+//import com.example.inventory.data.getFormattedPrice
 import com.example.inventory.databinding.ItemListItemBinding
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -60,9 +60,11 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
             val daysLeft = TimeUnit.DAYS.convert(timeLeft, TimeUnit.MILLISECONDS)
 
             binding.itemName.text = item.itemName
-            binding.itemPrice.text = item.getFormattedPrice()
+            binding.itemPrice.text = item.itemPrice
+//            binding.itemPrice.text = item.getFormattedPrice()
             binding.itemQuantity.text = item.quantityInStock.toString()
             binding.ingredientExpiry.text = daysLeft.toString()
+            binding.itemSum.text = item.itemSum.toString()
         }
     }
 
