@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_itemListFragment_to_addItemFragment"
             app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_itemListFragment_to_recipes"
+            app:destination="@id/recipes" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailFragment"
@@ -60,5 +63,17 @@
             app:destination="@id/itemListFragment"
             app:popUpTo="@id/itemListFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipes"
+        android:name="com.example.inventory.Recipes"
+        android:label="fragment_recipes"
+        tools:layout="@layout/fragment_recipes" >
+        <action
+            android:id="@+id/action_recipes_to_itemListFragment"
+            app:destination="@id/itemListFragment" />
+        <action
+            android:id="@+id/action_recipes_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
     </fragment>
 </navigation>

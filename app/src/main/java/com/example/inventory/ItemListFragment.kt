@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.inventory.databinding.ActivityMainBinding
 import com.example.inventory.databinding.ItemListFragmentBinding
 
 /**
@@ -44,8 +45,24 @@ class ItemListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = ItemListFragmentBinding.inflate(inflater, container, false)
+
+        val toRecipes = ItemListFragmentDirections.actionItemListFragmentToRecipes()
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.recipes -> this.findNavController().navigate(toRecipes)
+                else ->{
+                }
+            }
+            true
+        }
+
         return binding.root
+
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
