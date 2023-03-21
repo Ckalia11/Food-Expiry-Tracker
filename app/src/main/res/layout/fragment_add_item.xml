@@ -79,13 +79,21 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/label_label"
+            android:orientation="horizontal">
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/quantity_label"
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:hint="Quantity"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toTopOf="@+id/quantity_units_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label_label">
@@ -98,6 +106,18 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Spinner
+            android:id="@+id/units_spinner"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:layout_height="60dp"
+            android:hint="Unit"/>
+
+
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -108,7 +128,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quantity_label"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout"
             app:layout_constraintVertical_bias="0.0"
             android:visibility="gone"
             app:srcCompat="@drawable/baseline_image_search_24" />

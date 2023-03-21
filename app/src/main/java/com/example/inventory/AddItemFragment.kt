@@ -15,6 +15,7 @@
  */
 package com.example.inventory
 
+import android.R
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.Context.INPUT_METHOD_SERVICE
@@ -29,6 +30,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
