@@ -30,10 +30,70 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.inventory.workers.NotificationWorker
+import com.google.gson.Gson
+import okhttp3.*
+import okhttp3.ResponseBody
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
+//    Recipe Stuff
+class MyApiService {
+    fun makeApiRequest(url: String, callback: Callback) {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        client.newCall(request).enqueue(callback)
+    }
+}
+    class MyCallback : Callback {
+        override fun onResponse(call: okhttp3.Call, response: Response) {
+            val responseBody = response.body?.string()
+            val recipeList = Gson().fromJson(responseBody, Array<Recipe>::class.java)
+            val recipe = recipeList.getOrNull(1)
+            if (recipe != null) {
+                println("Recipe: ${recipe.title}")
+                println("Image: ${recipe.image}")
+                println("Missed Ingredients:")
+                recipe.missedIngredients.forEach {
+                    println("- ${it.name}")
+                }
+                println("Used Ingredients:")
+                recipe.usedIngredients.forEach {
+                    println("- ${it.name}")
+                }
+                println("Unused Ingredients:")
+                recipe.unusedIngredients.forEach {
+                    println("- ${it.name}")
+                }
+            }
+            else {
+                println("No recipe found.")
+            }
+        }
+
+        override fun onFailure(call: okhttp3.Call, e: IOException) {
+            // Handle failure
+        }
+    }
+
+    data class Recipe(
+        val id: Int,
+        val title: String,
+        val image: String,
+        val missedIngredients: List<Ingredient>,
+        val usedIngredients: List<Ingredient>,
+        val unusedIngredients: List<Ingredient>
+    )
+
+    data class Ingredient(
+        val id: Int,
+        val name: String,
+        val image: String
+    )
     companion object {
         const val CHANNEL_ID: String = "Expirations"
         const val WORK_ID: String = "NotificationWorker"
@@ -43,6 +103,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // recipe stuff
+        val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=c08a9abc204a46908523eeddcf170c27&ingredients=apples,+flour,+sugar"
+        val apiService = MyApiService()
+        apiService.makeApiRequest(url, MyCallback())
 
         // Retrieve NavController from the NavHostFragment
         val navHostFragment = supportFragmentManager
@@ -88,3 +154,4 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 }
+
