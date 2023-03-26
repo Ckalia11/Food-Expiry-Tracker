@@ -32,6 +32,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -275,6 +277,12 @@ class AddItemFragment : Fragment() {
                 callDatePicker()
             }
         }
+
+        // Add a list of labels
+        val items = arrayOf("Fruits", "Vegetables", "Meat")
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
+        binding.label.setAdapter(arrayAdapter)
+
         val quantity = binding.quantity
         quantity.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
