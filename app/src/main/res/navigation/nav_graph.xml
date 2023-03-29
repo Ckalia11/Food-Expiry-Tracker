@@ -72,6 +72,8 @@
     <action
         android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
         app:destination="@id/recipeDetailFragment" />
+        <argument android:name="ingredientsToUse"
+            app:argType="string[]" />
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"

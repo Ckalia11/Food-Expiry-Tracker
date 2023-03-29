@@ -40,8 +40,6 @@ class RecipeListAdapter(private val recipesList: Array<Recipe>) : RecyclerView.A
 
         val recipeImage: ImageView = itemView.findViewById(R.id.recipe_image)
         val recipeName : TextView = itemView.findViewById(R.id.recipe_name)
-
-
     }
 
 }

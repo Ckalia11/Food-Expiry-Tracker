@@ -33,6 +33,7 @@ import com.example.inventory.databinding.ItemListFragmentBinding
  * Main fragment displaying details for all items in the database.
  */
 class ItemListFragment : Fragment() {
+    var ingredientsToUse : MutableList<String> = mutableListOf("Banana")
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
             (activity?.application as InventoryApplication).database.itemDao()
@@ -52,6 +53,9 @@ class ItemListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        ingredientsToUse.add("Apples")
+        ingredientsToUse.add("Strawberries")
+        ingredientsToUse.add("Orange Juice")
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ItemListAdapter {
@@ -77,7 +81,7 @@ class ItemListFragment : Fragment() {
         }
 
         binding.recipesButton.setOnClickListener {
-            val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment()
+            val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment(ingredientsToUse.toTypedArray())
             this.findNavController().navigate(action)
         }
 

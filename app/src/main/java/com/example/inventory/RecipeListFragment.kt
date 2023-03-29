@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -13,6 +14,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
+import android.util.Log;
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,12 +30,15 @@ private const val ARG_PARAM2 = "param2"
  */
 class RecipeListFragment : Fragment() {
 
+    private val navigationArgs: RecipeListFragmentArgs by navArgs()
+
     private lateinit var adapter : RecipeListAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var recipeList : Array<Recipe>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -49,7 +54,16 @@ class RecipeListFragment : Fragment() {
         getRecipes()
     }
 
+    // Need to make this call to use current list of ingredients....
+    // Or a specified list of ingredients... hmmm
     private fun getRecipes() {
+        var ingredientsToUse : Array<String> = navigationArgs.ingredientsToUse
+        if (ingredientsToUse != null) {
+            for (ingr in ingredientsToUse) {
+                Log.d("Ingredient:", ingr)
+
+            }
+        }
         val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=c08a9abc204a46908523eeddcf170c27&ingredients=apples,+flour,+sugar"
         val apiService = MyApiService()
         apiService.makeApiRequest(url, MyCallback(this))
@@ -68,7 +82,8 @@ class RecipeListFragment : Fragment() {
 
     class MyCallback(private val fragment: RecipeListFragment) : Callback {
         override fun onResponse(call: okhttp3.Call, response: Response) {
-            val responseBody = response.body?.string()
+            var responseBody = response.body?.string()
+            Log.d("responseBody", responseBody + "lol")
             val recipeList = Gson().fromJson(responseBody, Array<Recipe>::class.java)
             fragment.activity?.runOnUiThread {
                 val recyclerView = fragment.view?.findViewById<RecyclerView>(R.id.recycler_view)

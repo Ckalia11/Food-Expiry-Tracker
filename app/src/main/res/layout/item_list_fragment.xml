@@ -13,8 +13,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,23 +24,41 @@
     <TextView
         android:id="@+id/name"
         style="@style/Widget.Inventory.Header"
-        android:layout_marginStart="@dimen/margin_between_elements"
+        android:layout_width="107dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/ingredient"
-        app:layout_constraintEnd_toStartOf="@+id/expiry_date"
-        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/use_for_recipe"
+        style="@style/Widget.Inventory.Header"
+        android:layout_width="67dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="3dp"
+        android:text="Recipe"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/expiry_date"
+        app:layout_constraintHorizontal_bias="0.669"
+        app:layout_constraintStart_toEndOf="@+id/name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/expiry_date"
         style="@style/Widget.Inventory.Header"
         android:layout_below="@+id/name"
-        android:layout_marginStart="@dimen/margin_between_elements"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/expiry_in"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -56,9 +73,10 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_between_elements"
+        android:layout_marginTop="4dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expiry_date" />
 
@@ -69,9 +87,9 @@
         android:layout_marginEnd="4dp"
         android:contentDescription="@string/add_new_item"
         android:src="@android:drawable/ic_input_add"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/divider1"
-        app:tint="@android:color/white"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/foodBankButton"
@@ -80,9 +98,9 @@
         android:layout_marginStart="4dp"
         android:contentDescription="@string/findFoodbanks"
         android:src="@drawable/ic_foodbank"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/divider1"
-        app:tint="@android:color/white"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@android:color/white" />
 
     <View
         android:id="@+id/divider1"
@@ -90,14 +108,14 @@
         android:layout_marginTop="@dimen/margin_between_elements"
         app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/SFContainerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
         android:orientation="vertical"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,11 +132,11 @@
             app:layout_constraintTop_toBottomOf="@+id/grocerySearchView" />
 
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/grocerySearchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/grocerySearchView"
             android:iconifiedByDefault="false"
-            android:queryHint="GroceryName"/>
+            android:queryHint="GroceryName" />
 
         <View
             android:id="@+id/divider2"
@@ -146,112 +164,112 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="All"/>
-    <!--                android:onClick="filterAll"/>-->
+                    android:text="All" />
+                <!--                android:onClick="filterAll"/>-->
 
                 <Button
                     android:id="@+id/Fruits"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Fruits"/>
-    <!--                android:onClick="filterFruits"/>-->
+                    android:text="Fruits" />
+                <!--                android:onClick="filterFruits"/>-->
 
                 <Button
                     android:id="@+id/Vegetables"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Vegetables"/>
-    <!--                android:onClick="filterVegetables"/>-->
+                    android:text="Vegetables" />
+                <!--                android:onClick="filterVegetables"/>-->
 
                 <Button
                     android:id="@+id/Canned"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Canned Goods"/>
-    <!--                android:onClick="filterCanned"/>-->
+                    android:text="Canned Goods" />
+                <!--                android:onClick="filterCanned"/>-->
 
                 <Button
                     android:id="@+id/Dairy"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Dairy"/>
-    <!--                android:onClick="filterDairy"/>-->
+                    android:text="Dairy" />
+                <!--                android:onClick="filterDairy"/>-->
 
                 <Button
                     android:id="@+id/Meat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Meat"/>
-    <!--                android:onClick="filterMeat"/>-->
+                    android:text="Meat" />
+                <!--                android:onClick="filterMeat"/>-->
 
                 <Button
                     android:id="@+id/Seafood"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Seafood"/>
-    <!--                android:onClick="filterSeafood"/>-->
+                    android:text="Seafood" />
+                <!--                android:onClick="filterSeafood"/>-->
 
                 <Button
                     android:id="@+id/Deli"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Deli"/>
-    <!--                android:onClick="filterDeli"/>-->
+                    android:text="Deli" />
+                <!--                android:onClick="filterDeli"/>-->
 
                 <Button
                     android:id="@+id/Condiments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Condiments"/>
-    <!--                android:onClick="filterCondiments"/>-->
+                    android:text="Condiments" />
+                <!--                android:onClick="filterCondiments"/>-->
 
                 <Button
                     android:id="@+id/Snacks"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Snacks"/>
-    <!--                android:onClick="filterSnacks"/>-->
+                    android:text="Snacks" />
+                <!--                android:onClick="filterSnacks"/>-->
 
                 <Button
                     android:id="@+id/Bakery"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Bakery"/>
-    <!--                android:onClick="filterBakery"/>-->
+                    android:text="Bakery" />
+                <!--                android:onClick="filterBakery"/>-->
 
                 <Button
                     android:id="@+id/Beverages"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Beverages"/>
-    <!--                android:onClick="filterBeverages"/>-->
+                    android:text="Beverages" />
+                <!--                android:onClick="filterBeverages"/>-->
 
                 <Button
                     android:id="@+id/PRC"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Pasta, Rice and Cereal"/>
-    <!--                android:onClick="filterPRC"/>-->
+                    android:text="Pasta, Rice and Cereal" />
+                <!--                android:onClick="filterPRC"/>-->
 
                 <Button
                     android:id="@+id/Frozen"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:text="Frozen"/>
-    <!--                android:onClick="filterFrozen"/>-->
+                    android:text="Frozen" />
+                <!--                android:onClick="filterFrozen"/>-->
 
             </LinearLayout>
 
