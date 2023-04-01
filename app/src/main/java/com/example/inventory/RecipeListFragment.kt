@@ -30,12 +30,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class RecipeListFragment : Fragment() {
 
-    private val navigationArgs: RecipeListFragmentArgs by navArgs()
-
-    private lateinit var adapter : RecipeListAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var recipeList : Array<Recipe>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -36,7 +36,8 @@ class ItemListFragment : Fragment() {
     var ingredientsToUse : MutableList<String> = mutableListOf("Banana")
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
-            (activity?.application as InventoryApplication).database.itemDao()
+            (activity?.application as InventoryApplication).database.itemDao(),
+            (activity?.application as InventoryApplication).database.labelDao()
         )
     }
 
