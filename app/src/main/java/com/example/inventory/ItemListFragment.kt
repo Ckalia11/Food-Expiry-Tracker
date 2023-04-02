@@ -16,14 +16,11 @@
 
 package com.example.inventory
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -75,11 +72,6 @@ class ItemListFragment : Fragment() {
             val action = ItemListFragmentDirections.actionItemListFragmentToAddItemFragment(
                 getString(R.string.add_fragment_title)
             )
-            this.findNavController().navigate(action)
-        }
-
-        binding.recipesButton.setOnClickListener {
-            val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment()
             this.findNavController().navigate(action)
         }
 
@@ -154,12 +146,6 @@ class ItemListFragment : Fragment() {
             viewModel.filterItems("Frozen")
         }
 
-        binding.foodBankButton.setOnClickListener {
-            val gmmIntentUri = Uri.parse("geo:0,0?q=food donation")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivity(mapIntent)
-        }
     }
 
     override fun onResume() {
