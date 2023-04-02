@@ -222,6 +222,10 @@ class InventoryViewModel(private val itemDao: ItemDao, private val labelDao: Lab
             imageByte = imageByte
         )
     }
+
+    fun getAllUniqueNames(): LiveData<List<String>> {
+        return itemDao.getAllUniqueNames().asLiveData()
+    }
 }
 
 /**

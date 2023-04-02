@@ -11,22 +11,25 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.example.inventory.MultiSelectSpinnerAdapter
+import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentRecipeHomeBinding
 import com.example.inventory.databinding.ItemListFragmentBinding
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RecipeHomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RecipeHomeFragment : Fragment() {
 
-//    private var _binding: FragmentRecipeHomeBinding? = null
-//    private val binding get() = _binding!!
+    private val viewModel: InventoryViewModel by activityViewModels {
+        InventoryViewModelFactory(
+            (activity?.application as InventoryApplication).database.itemDao(),
+            (activity?.application as InventoryApplication).database.labelDao()
+        )
+    }
     private lateinit var spinner: Spinner
+    private lateinit var itemNameList: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,18 +42,20 @@ class RecipeHomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_home, container, false)
         spinner = view.findViewById(R.id.ingredients_selected_for_recipe_search)
-        val options = listOf("Option 1", "Option 2", "Option 3", "Option 4")
-        val adapter = MultiSelectSpinnerAdapter(requireContext(), options)
-        spinner.adapter = adapter
 
+        val itemLiveData: LiveData<List<String>> = viewModel.getAllUniqueNames()
+        itemLiveData.observe(viewLifecycleOwner) { names ->
+            itemNameList = names
+            val adapter = MultiSelectSpinnerAdapter(requireContext(), itemNameList)
+            spinner.adapter = adapter
+        }
+        val options = listOf("Option 1", "Option 2", "Option 3", "Option 4")
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val spinner: Spinner = view.findViewById(R.id.ingredients_selected_for_recipe_search)
-
         val submit: Button = view.findViewById(R.id.testingSubmit)
         submit.setOnClickListener {
             val itemms = getSelectedItems()
@@ -62,12 +67,15 @@ class RecipeHomeFragment : Fragment() {
 
     }
 
-
-
-
-
 //    testingSubmit
     fun getSelectedItems(): List<String> {
         return (spinner.adapter as MultiSelectSpinnerAdapter).getSelectedItems()
     }
+
+     fun doSomethingWithItems() {
+         // Iterate over the itemList and do something with each item
+         for (item in itemNameList) {
+             Log.d("itemName", item)
+         }
+     }
 }
