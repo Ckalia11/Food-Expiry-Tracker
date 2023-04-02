@@ -52,4 +52,6 @@
     <string name="expiry_hint">Ingredient expired. Please discard and delete.</string>
     <string name="consumed_hint">Ingredient consumed. Please delete.</string>
     <string name="homepage">Homepage</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="recipe_landing_page_title">Customize The Ingredients You Would Like the Recipes To Use!</string>
 </resources>
