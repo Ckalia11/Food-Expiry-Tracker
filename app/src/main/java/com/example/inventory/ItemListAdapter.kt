@@ -16,6 +16,7 @@
 package com.example.inventory
 
 //import com.example.inventory.data.getFormattedPrice
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -56,11 +57,17 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
     class ItemViewHolder(private var binding: ItemListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        fun useForRecipe(item: Item) {
+            val args = Bundle()
+            args.putBoolean(item.name, binding.recipeCheckbox.isChecked)
+        }
+
         fun bind(item: Item) {
             binding.name.text = item.name
             val expiredDays = item.getDaysToExpiry().toString()
             val formatExpiredDays = "$expiredDays days"
             binding.expiryDate.text = formatExpiredDays
+            binding.recipeCheckbox.isChecked = true
 
             if (item.hasExpired()) {
                 binding.card.setCardBackgroundColor(ContextCompat.getColor(binding.card.context, R.color.ingredient_expired))

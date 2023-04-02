@@ -100,7 +100,6 @@
         android:src="@drawable/ic_nearby"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/divider1"
-        app:layout_constraintStart_toStartOf="parent"
         app:tint="@android:color/white" />
 
     <View

@@ -22,12 +22,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventory.databinding.ItemListFragmentBinding
+import android.util.Log;
+
 
 /**
  * Main fragment displaying details for all items in the database.
@@ -47,13 +50,15 @@ class ItemListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
+        arguments: Bundle?
     ): View? {
         _binding = ItemListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         ingredientsToUse.add("Apples")
         ingredientsToUse.add("Strawberries")
         ingredientsToUse.add("Orange Juice")
@@ -81,7 +86,10 @@ class ItemListFragment : Fragment() {
             this.findNavController().navigate(action)
         }
 
+
         binding.recipesButton.setOnClickListener {
+//            val chk = view.findViewById<CheckBox>(R.id.recipe_checkbox)
+//            Log.d("Checked", chk.isChecked.toString())
             val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment(ingredientsToUse.toTypedArray())
             this.findNavController().navigate(action)
         }

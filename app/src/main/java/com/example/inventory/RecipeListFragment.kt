@@ -16,19 +16,13 @@ import okhttp3.Response
 import java.io.IOException
 import android.util.Log;
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
-
 /**
  * A simple [Fragment] subclass.
  * Use the [RecipeListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class RecipeListFragment : Fragment() {
+    private val navigationArgs: RecipeListFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +54,7 @@ class RecipeListFragment : Fragment() {
         }
         val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=c08a9abc204a46908523eeddcf170c27&ingredients=apples,+flour,+sugar"
         val apiService = MyApiService()
-        apiService.makeApiRequest(url, MyCallback(this))
+//        apiService.makeApiRequest(url, MyCallback(this))
     }
 
     class MyApiService {
