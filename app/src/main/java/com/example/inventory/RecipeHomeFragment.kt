@@ -45,17 +45,17 @@ class RecipeHomeFragment : Fragment() {
 
         val itemLiveData: LiveData<List<String>> = viewModel.getAllUniqueNames()
         itemLiveData.observe(viewLifecycleOwner) { names ->
-            itemNameList = names
+            itemNameList = listOf("Select All") + names
             val adapter = MultiSelectSpinnerAdapter(requireContext(), itemNameList)
             spinner.adapter = adapter
         }
-        val options = listOf("Option 1", "Option 2", "Option 3", "Option 4")
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val spinner: Spinner = view.findViewById(R.id.ingredients_selected_for_recipe_search)
+
         val submit: Button = view.findViewById(R.id.testingSubmit)
         submit.setOnClickListener {
             val itemms = getSelectedItems()
@@ -66,10 +66,10 @@ class RecipeHomeFragment : Fragment() {
         }
 
     }
-
-//    testingSubmit
-    fun getSelectedItems(): List<String> {
-        return (spinner.adapter as MultiSelectSpinnerAdapter).getSelectedItems()
+    private fun getSelectedItems(): List<String> {
+        var userSelectedItems : MutableList<String> = ((spinner.adapter as MultiSelectSpinnerAdapter).getSelectedItems()).toMutableList()
+        userSelectedItems.remove("Select All")
+        return userSelectedItems
     }
 
      fun doSomethingWithItems() {

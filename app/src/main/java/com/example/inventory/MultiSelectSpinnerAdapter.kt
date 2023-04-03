@@ -1,89 +1,82 @@
 package com.example.inventory
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 
-class MultiSelectSpinnerAdapter(private val context: Context, private val items: List<String>) :
-    BaseAdapter(), SpinnerAdapter {
+class MultiSelectSpinnerAdapter(
+    private val context: Context,
+    private val itemList: List<String>,
+) : BaseAdapter() {
 
     private val selectedItems = mutableListOf<String>()
 
+    init {
+        selectedItems.addAll(itemList)
+    }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = convertView ?: LayoutInflater.from(context)
+        val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.multi_select_spinner_item, parent, false)
+        val checkBox = view.findViewById<CheckBox>(R.id.recipeDropdownCheckbox)
+        val textView = view.findViewById<TextView>(R.id.recipeDropdownTextView)
 
-        val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
-        val textView = view.findViewById<TextView>(R.id.textView)
-
-        textView.text = items[position]
-
-        checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedItems.add(items[position])
-            } else {
-                selectedItems.remove(items[position])
+        if (itemList[position] == "Select All") {
+            textView.text = "Select/Deselect All"
+            checkBox.isChecked = selectedItems.size == itemList.size
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedItems.clear()
+                    selectedItems.addAll(itemList)
+                } else {
+                    selectedItems.clear()
+                }
+                notifyDataSetChanged()
             }
+        } else {
+            val selectAllCheckbox = parent?.getChildAt(0)?.findViewById<CheckBox>(R.id.recipeDropdownCheckbox)
+            textView.text = itemList[position]
+            checkBox.isChecked = selectedItems.contains(itemList[position])
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    if (!selectedItems.contains(itemList[position])) {
+                        selectedItems.add(itemList[position])
+                    }
+                } else {
+                    selectedItems.remove(itemList[position])
+                }
+                // Uncheck "Select All" checkbox if any other checkbox is unchecked
+                // TODO: This is kinda buggy right now. Perhaps pass in a parameter to the onclicklistener
+                // To determine where the call is coming from. If it's coming from here then we simply
+                // Uncheck the "Select All" button but then we DON'T trigger the array.clear()
+                if (!isChecked && selectedItems.size >= itemList.size - 1) {
+                    selectAllCheckbox?.isChecked = false
+                }
+            }
+            }
+
+            return view
         }
 
-        checkBox.isChecked = selectedItems.contains(items[position])
+        override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
+            return getView(position, convertView, parent)
+        }
 
-        return view
+        override fun getItem(position: Int): Any {
+            return itemList[position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getCount(): Int {
+            return itemList.size
+        }
+
+        fun getSelectedItems(): List<String> {
+            return selectedItems
+        }
     }
-
-    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        return getView(position, convertView, parent)
-    }
-
-    override fun getCount(): Int {
-        return items.size
-    }
-
-    override fun getItem(position: Int): Any {
-        return items[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    fun getSelectedItems(): List<String> {
-        return selectedItems
-    }
-}
-
-
-//class MultiSelectSpinnerAdapter(
-//    context: Context,
-//    private val resourceLayout: Int,
-//    private val items: List<String>
-//) : ArrayAdapter<String>(context, resourceLayout, items) {
-//
-//    private class ViewHolder {
-//        lateinit var text: TextView
-//        lateinit var checkbox: CheckBox
-//    }
-//
-//    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-//        val view: View
-//        val holder: ViewHolder
-//
-//        if (convertView == null) {
-//            view = LayoutInflater.from(context).inflate(resourceLayout, parent, false)
-//            holder = ViewHolder()
-//            holder.text = view.findViewById(R.id.text)
-//            holder.checkbox = view.findViewById(R.id.checkbox)
-//            view.tag = holder
-//        } else {
-//            view = convertView
-//            holder = convertView.tag as ViewHolder
-//        }
-//
-//        val item = items[position]
-//        holder.text.text = item
-//        holder.checkbox.isChecked = false
-//
-//        return view
-//    }
-//}
