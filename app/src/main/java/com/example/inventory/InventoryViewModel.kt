@@ -19,8 +19,6 @@ package com.example.inventory
 import androidx.lifecycle.*
 import com.example.inventory.data.Item
 import com.example.inventory.data.ItemDao
-import com.example.inventory.data.Label
-import com.example.inventory.data.LabelDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,12 +26,12 @@ import kotlinx.coroutines.launch
  * View Model to keep a reference to the Inventory repository and an up-to-date list of all items.
  *
  */
-class InventoryViewModel(private val itemDao: ItemDao, private val labelDao: LabelDao) : ViewModel() {
+class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     val allItems: MutableLiveData<List<Item>> = MutableLiveData<List<Item>>()
     // Cache all items form the database using LiveData.
     //    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
 
-    val allLabels: LiveData<List<Label>> = labelDao.getLabels().asLiveData()
+
     fun getItems(searchString: String=""){
         viewModelScope.launch(Dispatchers.IO) {
             allItems.postValue(itemDao.getSearchedItems(searchString))
@@ -143,40 +141,7 @@ class InventoryViewModel(private val itemDao: ItemDao, private val labelDao: Lab
         return itemDao.getItem(id).asLiveData()
     }
 
-    /**
-     * Inserts the new Label into database if it doesnt exist.
-     */
-    fun addNewLabel(
-        name: String
-    ) {
-        val newLabel = Label(name)
-        insertLabel(newLabel)
-    }
 
-    /**
-     * Launching a new coroutine to insert an item in a non-blocking way
-     */
-    private fun insertLabel(label: Label) {
-        viewModelScope.launch {
-            labelDao.insert(label)
-        }
-    }
-
-    /**
-     * Launching a new coroutine to delete an item in a non-blocking way
-     */
-    fun deleteLabel(label: Label) {
-        viewModelScope.launch {
-            labelDao.delete(label)
-        }
-    }
-
-    /**
-     * Retrieve an item from the repository.
-     */
-    fun retrieveLabel(name: String): LiveData<Label> {
-        return labelDao.getLabel(name).asLiveData()
-    }
 
     /**
      * Returns true if the EditTexts are not empty
@@ -238,11 +203,11 @@ class InventoryViewModel(private val itemDao: ItemDao, private val labelDao: Lab
 /**
  * Factory class to instantiate the [ViewModel] instance.
  */
-class InventoryViewModelFactory(private val itemDao: ItemDao, private val labelDao: LabelDao) : ViewModelProvider.Factory {
+class InventoryViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(InventoryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return InventoryViewModel(itemDao, labelDao) as T
+            return InventoryViewModel(itemDao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
