@@ -86,17 +86,7 @@ class ItemDetailFragment : Fragment() {
             expiryDate.text = item.expiryDate
             label.text = item.label.toString()
             quantity.text = quantityString
-            decrementItem.isEnabled = viewModel.isStockAvailable(item)
-            incrementItem.isEnabled = viewModel.isStockAvailable(item)
-            decrementItem.setOnClickListener {
-                viewModel.sellItem(item)
-                if (item.quantity <= 1) {
-                    showConfirmationDialog()
-                }
-            }
-            incrementItem.setOnClickListener { viewModel.incrementItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
-            sendNotification.setOnClickListener { sendNotification() }
             editItem.setOnClickListener { editItem() }
             binding.imageView.setImageBitmap(loadImageByte)
         }
