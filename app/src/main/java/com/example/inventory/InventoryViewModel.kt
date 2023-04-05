@@ -83,25 +83,6 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     }
 
     /**
-     * Decreases the stock by one unit and updates the database.
-     */
-    fun sellItem(item: Item) {
-        if (item.quantity > 0) {
-            // Decrease the quantity by 1
-            val newItem = item.copy(quantity = item.quantity - 1)
-            updateItem(newItem)
-        }
-    }
-
-    fun incrementItem(item: Item) {
-        if (item.quantity > 0) {
-            // Decrease the quantity by 1
-            val newItem = item.copy(quantity = item.quantity + 1)
-            updateItem(newItem)
-        }
-    }
-
-    /**
      * Inserts the new Item into database.
      */
     fun addNewItem(
