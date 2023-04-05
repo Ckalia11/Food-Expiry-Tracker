@@ -1,5 +1,6 @@
 package com.example.inventory
 
+import android.animation.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,8 +9,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.*
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -56,7 +59,12 @@ class RecipeHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val spinner: Spinner = view.findViewById(R.id.ingredients_selected_for_recipe_search)
+
+//        Rotating Image for nice visual effects
+        val imageView = view.findViewById<ImageView>(R.id.ingredientsIcon)
+        val rotation = ObjectAnimator.ofFloat(imageView, View.ROTATION, -30f, 30f, 0f)
+        rotation.duration = 1500
+        rotation.start()
 
         val submit: Button = view.findViewById(R.id.findRecipes)
         submit.setOnClickListener {

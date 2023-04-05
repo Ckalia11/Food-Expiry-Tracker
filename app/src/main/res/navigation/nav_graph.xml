@@ -102,7 +102,7 @@
     <fragment
         android:id="@+id/recipeHomeFragment"
         android:name="com.example.inventory.RecipeHomeFragment"
-        android:label="Recipes Home Page"
+        android:label="Recipes Ingredients Selection "
         tools:layout="@layout/fragment_recipe_home" >
         <action
             android:id="@+id/action_recipeHomeFragment_to_recipeListFragment"
