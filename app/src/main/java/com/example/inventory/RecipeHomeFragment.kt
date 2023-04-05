@@ -26,7 +26,6 @@ class RecipeHomeFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
             (activity?.application as InventoryApplication).database.itemDao(),
-            (activity?.application as InventoryApplication).database.labelDao()
         )
     }
     private lateinit var spinner: Spinner

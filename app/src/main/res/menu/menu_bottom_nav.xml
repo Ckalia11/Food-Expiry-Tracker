@@ -4,10 +4,10 @@
         android:title="@string/homepage"
         android:enabled="true"
         android:icon="@drawable/ic_home" />
-    <item android:id="@+id/addItemFragment"
-        android:title="@string/new_ingredient"
+    <item android:id="@+id/recipeHomeFragment"
+        android:title="@string/recipe_landing_page_title"
         android:enabled="true"
-        android:icon="@android:drawable/ic_input_add" />
+        android:icon="@drawable/ic_fork_knife" />
     <item android:id="@+id/action_foodbank"
         android:title="@string/find_foodbanks"
         android:enabled="true"

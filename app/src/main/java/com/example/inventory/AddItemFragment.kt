@@ -59,9 +59,7 @@ class AddItemFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
             (activity?.application as InventoryApplication).database
-                .itemDao(),
-            (activity?.application as InventoryApplication).database
-                .labelDao()
+                .itemDao()
         )
     }
     private val navigationArgs: ItemDetailFragmentArgs by navArgs()
@@ -145,9 +143,9 @@ class AddItemFragment : Fragment() {
         binding.apply {
             name.setText(item.name, TextView.BufferType.SPANNABLE)
             expiryDate.setText(item.expiryDate, TextView.BufferType.SPANNABLE)
-            label.setText(item.label.toString(), TextView.BufferType.SPANNABLE)
+            label.setText(item.label.toString(), false)
             quantity.setText(item.quantity.toString(), TextView.BufferType.SPANNABLE)
-            unit.setText(item.unit.toString(), TextView.BufferType.SPANNABLE)
+            unit.setText(item.unit.toString(), false)
             binding.imageView.setImageBitmap(loadImageByte)
             saveAction.setOnClickListener {
                 binding.name.clearFocus()
@@ -169,7 +167,6 @@ class AddItemFragment : Fragment() {
      */
     private fun addNewItem() {
         if (isEntryValid()) {
-            viewModel.addNewLabel(binding.label.text.toString())
             viewModel.addNewItem(
                 binding.name.text.toString(),
                 binding.expiryDate.text.toString(),
@@ -188,7 +185,6 @@ class AddItemFragment : Fragment() {
      */
     private fun updateItem() {
         if (isEntryValid()) {
-            viewModel.addNewLabel(this.binding.label.text.toString())
             viewModel.updateItem(
                 this.navigationArgs.itemId,
                 this.binding.name.text.toString(),
@@ -332,24 +328,33 @@ class AddItemFragment : Fragment() {
         reader.readLines().forEach {
             ingredientsListFromCSV.add(it)
         }
-//      Adding Dropdown options for ingredient name, label, and unit
-        val labels = arrayOf("Fruits", "Vegetables", "Meat")
+//         Adding Dropdown options for ingredient name, label and unit
+        val labels = arrayOf(
+            "Fruits",
+            "Vegetables",
+            "Meat",
+            "Canned Goods",
+            "Dairy",
+            "Meat",
+            "Seafood",
+            "Deli",
+            "Condiments",
+            "Snacks",
+            "Bakery",
+            "Beverages",
+            "Pasta, Rice, and Cereal",
+            "Frozen"
+        )
+        
         val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds", "Count")
         val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, ingredientsListFromCSV)
+        val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, labels)
         val unitsArray = ArrayAdapter(requireContext(), R.layout.list_item, units)
         binding.name.setAdapter(namesArray)
+        binding.label.setAdapter(labelsArray)
         binding.unit.setAdapter(unitsArray)
         binding.unit.setText("Count", false)
 
-        // Add default labels
-        labels.forEach { viewModel.addNewLabel(it) }
-        // populate labels dropdown from table
-        viewModel.allLabels.observe(this.viewLifecycleOwner) { labels ->
-            labels?.let {
-                val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, it)
-                binding.label.setAdapter(labelsArray)
-            }
-        }
 
         val expiryDate = binding.expiryDate
         expiryDate.setOnFocusChangeListener { _, hasFocus ->

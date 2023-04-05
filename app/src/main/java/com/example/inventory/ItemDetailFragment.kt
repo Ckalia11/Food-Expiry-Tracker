@@ -46,8 +46,7 @@ class ItemDetailFragment : Fragment() {
 
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
-            (activity?.application as InventoryApplication).database.itemDao(),
-            (activity?.application as InventoryApplication).database.labelDao(),
+            (activity?.application as InventoryApplication).database.itemDao()
         )
     }
 
@@ -76,23 +75,18 @@ class ItemDetailFragment : Fragment() {
         } else {
             BitmapFactory.decodeByteArray(item.imageByte, 0, item.imageByte!!.size)
         }
+        val quantityString = if (item.unit != "Count") {
+            "${item.quantity} ${item.unit}"
+        } else {
+            item.quantity.toString()
+        }
 
         binding.apply {
             name.text = item.name
             expiryDate.text = item.expiryDate
             label.text = item.label.toString()
-            quantity.text = item.quantity.toString()
-            decrementItem.isEnabled = viewModel.isStockAvailable(item)
-            incrementItem.isEnabled = viewModel.isStockAvailable(item)
-            decrementItem.setOnClickListener {
-                viewModel.sellItem(item)
-                if (item.quantity <= 1) {
-                    showConfirmationDialog()
-                }
-            }
-            incrementItem.setOnClickListener { viewModel.incrementItem(item) }
+            quantity.text = quantityString
             deleteItem.setOnClickListener { showConfirmationDialog() }
-            sendNotification.setOnClickListener { sendNotification() }
             editItem.setOnClickListener { editItem() }
             binding.imageView.setImageBitmap(loadImageByte)
         }
