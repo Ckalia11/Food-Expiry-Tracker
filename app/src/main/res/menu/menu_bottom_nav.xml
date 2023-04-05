@@ -4,8 +4,8 @@
         android:title="@string/homepage"
         android:enabled="true"
         android:icon="@drawable/ic_home" />
-    <item android:id="@+id/recipeListFragment"
-        android:title="@string/recipe_list_fragment_title"
+    <item android:id="@+id/recipeHomeFragment"
+        android:title="@string/recipe_landing_page_title"
         android:enabled="true"
         android:icon="@drawable/ic_fork_knife" />
     <item android:id="@+id/action_foodbank"

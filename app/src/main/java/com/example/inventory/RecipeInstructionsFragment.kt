@@ -1,5 +1,6 @@
 package com.example.inventory
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -41,7 +42,8 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     getRecipeInstructions(recipeId)
 }
 private fun getRecipeInstructions(recipeId: Int) {
-    val url = "https://api.spoonacular.com/recipes/" + recipeId.toString() +  "/analyzedInstructions?apiKey=c08a9abc204a46908523eeddcf170c27"
+    val url =
+        "https://api.spoonacular.com/recipes/$recipeId/analyzedInstructions?apiKey=c08a9abc204a46908523eeddcf170c27"
     val apiService = MyApiService()
     apiService.makeApiRequest(url, MyCallback(this))
 }
@@ -58,6 +60,7 @@ class MyApiService {
 }
 
 class MyCallback(private val fragment: RecipeInstructionsFragment) : Callback {
+    @SuppressLint("SetTextI18n")
     override fun onResponse(call: okhttp3.Call, response: Response) {
         if (response.isSuccessful) {
             val responseBody = response.body?.string()

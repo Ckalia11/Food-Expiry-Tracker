@@ -41,7 +41,6 @@ class RecipeDetailFragment : Fragment() {
 
         val args: RecipeDetailFragmentArgs by navArgs()
         val recipe = args.recipe
-        println(recipe.id)
 
         val recipeNameText = view.findViewById<TextView>(R.id.recipe_name)
         recipeNameText.text = recipe.title

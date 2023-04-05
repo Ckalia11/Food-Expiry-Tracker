@@ -15,6 +15,7 @@
  */
 package com.example.inventory.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -57,4 +58,7 @@ interface ItemDao {
 
     @Delete
     suspend fun delete(item: Item)
+
+    @Query("SELECT DISTINCT name FROM item")
+    fun getAllUniqueNames(): Flow<List<String>>
 }

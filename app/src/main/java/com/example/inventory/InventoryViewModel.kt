@@ -179,6 +179,10 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             imageByte = imageByte
         )
     }
+
+    fun getAllUniqueNames(): LiveData<List<String>> {
+        return itemDao.getAllUniqueNames().asLiveData()
+    }
 }
 
 /**
