@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
@@ -30,6 +31,8 @@ class RecipeHomeFragment : Fragment() {
     }
     private lateinit var spinner: Spinner
     private lateinit var itemNameList: List<String>
+    val ENDPOINT = "https://api.spoonacular.com/recipes/findByIngredients"
+    val APIKEY = "33dde6e60fde4a11bc1040e239a4fdb3"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,13 +59,12 @@ class RecipeHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val spinner: Spinner = view.findViewById(R.id.ingredients_selected_for_recipe_search)
 
-        val submit: Button = view.findViewById(R.id.testingSubmit)
+        val submit: Button = view.findViewById(R.id.findRecipes)
         submit.setOnClickListener {
-            val itemms = getSelectedItems()
-            for (item in itemms) {
-                Log.d("item", item)
-            }
-            Log.d("lol", "lool")
+            val url = constructAPIQuery(getSelectedItems())
+            val bundle = bundleOf("url" to url)
+            findNavController().navigate(R.id.recipeListFragment, bundle)
+
         }
 
     }
@@ -72,10 +74,9 @@ class RecipeHomeFragment : Fragment() {
         return userSelectedItems
     }
 
-     fun doSomethingWithItems() {
-         // Iterate over the itemList and do something with each item
-         for (item in itemNameList) {
-             Log.d("itemName", item)
-         }
+     fun constructAPIQuery(ingredients : List<String>): String {
+         val url = "$ENDPOINT?apiKey=$APIKEY&ingredients=${ingredients.joinToString(",+")}"
+         Log.d("URL", url)
+         return (url)
      }
 }

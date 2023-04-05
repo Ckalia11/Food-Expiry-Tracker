@@ -74,6 +74,10 @@
     <action
         android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
         app:destination="@id/recipeDetailFragment" />
+        <argument android:name="url" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeHomeFragment"
+            app:destination="@id/recipeHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
@@ -99,5 +103,9 @@
         android:id="@+id/recipeHomeFragment"
         android:name="com.example.inventory.RecipeHomeFragment"
         android:label="Recipes Home Page"
-        tools:layout="@layout/fragment_recipe_home" />
+        tools:layout="@layout/fragment_recipe_home" >
+        <action
+            android:id="@+id/action_recipeHomeFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
 </navigation>
