@@ -39,9 +39,6 @@ class RecipeListFragment : Fragment() {
         val args: RecipeListFragmentArgs by navArgs()
         val url = args.url
 
-        Log.d("URL OVER HER!!!", url)
-        Log.d("args OVER HER!!!", args.toString())
-
         getRecipes(url)
     }
 
@@ -67,7 +64,6 @@ class RecipeListFragment : Fragment() {
 
         override fun onResponse(call: okhttp3.Call, response: Response) {
             val responseBody = response.body?.string()
-            Log.d("ResponseBody", responseBody+"lol")
             val recipeList = Gson().fromJson(responseBody, Array<Recipe>::class.java)
             handler.post {
                 if (recipeList.isEmpty()) {

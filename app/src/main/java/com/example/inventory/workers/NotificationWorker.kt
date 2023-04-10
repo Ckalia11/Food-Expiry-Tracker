@@ -19,11 +19,9 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters):
 
     @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
-        Log.d("worker", "running task")
         val items: List<Item> = ItemRoomDatabase.getDatabase(applicationContext).itemDao().getItems().first()
         items.forEach { item:Item ->
             if (item.getDaysToExpiry() <= 1) {
-                Log.d("worker", "${item.name} expires in ${item.getDaysToExpiry()} days")
                 val builder = NotificationCompat.Builder(applicationContext, MainActivity.CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notifications)
                     .setContentTitle(applicationContext.getString(R.string.expiring_soon))
@@ -37,7 +35,6 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters):
             }
         }
 
-        Log.d("worker", "finished checking")
         // Indicate whether the work finished successfully with the Result
         return Result.success()
     }
