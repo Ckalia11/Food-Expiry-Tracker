@@ -2,6 +2,8 @@
 
 Food Tracker is an Android app that helps you keep track of your food items, find nearby foodbanks 🏦, and discover recipes 🍲 based on the ingredients you have. It's perfect for anyone who wants to reduce food waste 🗑️, donate to local charities 🤲, or find new meal ideas 💡.
 
+**Video Demo: https://www.youtube.com/watch?v=DsFB21zoyxE**
+
 ## 🚀 Features
 
 Food Tracker has three main features:
