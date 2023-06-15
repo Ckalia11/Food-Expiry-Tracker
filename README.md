@@ -13,6 +13,3 @@ Food Tracker has three main features:
 2. **Find nearby foodbanks:** With Food Tracker, you can have Google Maps 🗺️ launched to find nearby foodbanks and charities that accept donations. The app uses your geolocation 📍 to suggest the closest options, so you can easily drop off any surplus food you may have.
 
 3. **Discover recipes:** Food Tracker also lets you discover new recipes 🌯 based on the ingredients you have in your pantry. The app queries the Spoonacular API to recommend recipes that use your items, and provides a list of recipes with details and instructions. You can then choose recipes that conform to your dietary restrictions, such as gluten-free 🌾 or vegan 🌿.
-
-## ECE 452 Winter 2023
-## Group 3
